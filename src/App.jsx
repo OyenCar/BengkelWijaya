@@ -137,7 +137,7 @@ const App = () => {
       <section id="beranda" className="relative h-screen flex items-center justify-center bg-slate-900 overflow-hidden">
         {/* Background Overlay */}
         <div className="absolute inset-0 z-0 opacity-40">
-           <img 
+          <img 
             src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80&w=1920" 
             alt="Welding Background" 
             className="w-full h-full object-cover"
@@ -226,7 +226,7 @@ const App = () => {
         
         <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center gap-12 relative z-10">
           <div className="lg:w-1/2">
-             <img 
+            <img 
               src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&q=80&w=800" 
               alt="Welder at work" 
               className="rounded-2xl shadow-2xl border-4 border-slate-800"
@@ -317,153 +317,140 @@ const App = () => {
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="kontak" className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-            
-            {/* Contact Info */}
-            <div className="space-y-8">
-              <div>
-                <h2 className="text-4xl font-bold text-slate-900 mb-4">Mari Wujudkan <br/>Ide Anda</h2>
-                <p className="text-slate-600 text-lg">
-                  Konsultasikan kebutuhan Anda sekarang. Survei lokasi gratis untuk wilayah Jabodetabek.
-                </p>
-              </div>
+       {/* Contact Section - Aesthetic Grid Layout */}
+      <section id="kontak" className="py-24 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4">Mulai Proyek Anda</h2>
+            <p className="text-slate-500">Konsultasikan ide Anda, kami akan berikan estimasi harga terbaik.</p>
+          </div>
 
-              <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="p-3 bg-orange-100 rounded-lg text-orange-600">
-                    <MapPin size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900">Lokasi Bengkel</h4>
-                    <p className="text-slate-600">Jl. Industri Raya No. 45, Kecamatan Sukamaju, Kota Besi.</p>
-                  </div>
+          {/* Info Cards Row */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div className="bg-slate-50 p-6 rounded-3xl border border-slate-100 flex items-center gap-4">
+                <div className="p-3 bg-white rounded-2xl text-orange-500 shadow-sm"><Phone size={24} /></div>
+                <div>
+                  <p className="text-xs text-slate-500 font-bold uppercase">WhatsApp / Telp</p>
+                  <p className="text-slate-900 font-bold">0812-3456-7890</p>
                 </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="p-3 bg-orange-100 rounded-lg text-orange-600">
-                    <Phone size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900">Telepon / WhatsApp</h4>
-                    <p className="text-slate-600">0812-3456-7890 (Admin)</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="p-3 bg-orange-100 rounded-lg text-orange-600">
-                    <Clock size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900">Jam Operasional</h4>
-                    <p className="text-slate-600">Senin - Sabtu: 08.00 - 17.00 WIB</p>
-                  </div>
-                </div>
-              </div>
             </div>
+            <div className="bg-slate-50 p-6 rounded-3xl border border-slate-100 flex items-center gap-4">
+                <div className="p-3 bg-white rounded-2xl text-orange-500 shadow-sm"><MapPin size={24} /></div>
+                <div>
+                  <p className="text-xs text-slate-500 font-bold uppercase">Lokasi Workshop</p>
+                  <p className="text-slate-900 font-bold">Kec. Sukamaju, Kota Besi</p>
+                </div>
+            </div>
+            <div className="bg-slate-50 p-6 rounded-3xl border border-slate-100 flex items-center gap-4">
+                <div className="p-3 bg-white rounded-2xl text-orange-500 shadow-sm"><Clock size={24} /></div>
+                <div>
+                  <p className="text-xs text-slate-500 font-bold uppercase">Jam Buka</p>
+                  <p className="text-slate-900 font-bold">Senin - Sabtu (08:00 - 17:00)</p>
+                </div>
+            </div>
+          </div>
 
-            {/* Form */}
-            <div className="bg-slate-50 p-8 rounded-3xl shadow-lg border border-slate-100">
-              <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Nama Lengkap</label>
-                  <input type="text" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all" placeholder="Nama Anda" />
+          {/* Form & Map Split */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            {/* Form Column */}
+            <div className="lg:col-span-5 bg-white p-8 rounded-[2.5rem] shadow-xl border border-slate-100">
+              <h3 className="text-2xl font-bold text-slate-900 mb-6">Kirim Pesan</h3>
+              <form className="space-y-4">
+                <div className="space-y-1">
+                  <label className="text-sm font-semibold text-slate-700 ml-1">Nama</label>
+                  <input type="text" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all" placeholder="Nama Lengkap" />
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">No. WhatsApp</label>
-                  <input type="tel" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all" placeholder="08xx-xxxx-xxxx" />
+                <div className="space-y-1">
+                  <label className="text-sm font-semibold text-slate-700 ml-1">Nomor WA</label>
+                  <input type="tel" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all" placeholder="08xx-xxxx-xxxx" />
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Kebutuhan</label>
-                  <select className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all">
-                    <option>Pagar Besi</option>
+                <div className="space-y-1">
+                  <label className="text-sm font-semibold text-slate-700 ml-1">Kebutuhan</label>
+                  <select className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all">
+                    <option>Pagar / Gerbang</option>
                     <option>Kanopi</option>
-                    <option>Teralis & Railing</option>
                     <option>Konstruksi Baja</option>
-                    <option>Lainnya</option>
+                    <option>Teralis / Railing</option>
                   </select>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Pesan Tambahan</label>
-                  <textarea rows="3" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all" placeholder="Jelaskan detail ukuran atau model..."></textarea>
+                <div className="space-y-1">
+                  <label className="text-sm font-semibold text-slate-700 ml-1">Detail</label>
+                  <textarea rows="4" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all" placeholder="Ceritakan ukuran atau model yang diinginkan..."></textarea>
                 </div>
-                <button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-orange-500/30 transition-all hover:-translate-y-1">
-                  Kirim Pesan
+                <button className="w-full bg-slate-900 text-white font-bold py-4 rounded-xl hover:bg-orange-500 transition-colors shadow-lg shadow-slate-900/20 hover:shadow-orange-500/20">
+                  Kirim via WhatsApp
                 </button>
               </form>
             </div>
-          </div>
 
-          {/* Map Section */}
-          <div className="rounded-3xl overflow-hidden shadow-xl border border-slate-200 h-[400px] relative w-full">
-            <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2355.605924108673!2d110.84246818049397!3d-6.8134276167226036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e70c5d3afdf8d2b%3A0x15cbd851befe3108!2sBengkel%20Las%20Wijaya%20Konstruksi!5e0!3m2!1sen!2sid!4v1767910506237!5m2!1sen!2sid" 
-              width="100%" 
-              height="100%" 
-              style={{ border: 0 }} 
-              allowFullScreen="" 
-              loading="lazy" 
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Lokasi Bengkel Bengkel Wijaya"
-            ></iframe>
-            
-            {/* Map Overlay Card */}
-            <div className="absolute bottom-6 left-6 bg-white p-4 rounded-xl shadow-lg max-w-xs border border-slate-100 hidden md:block">
-               <div className="flex items-start gap-3">
-                 <div className="p-2 bg-orange-100 rounded-lg text-orange-600">
-                    <Navigation size={20} />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900 text-sm">Bengkel Wijaya Workshop</h4>
-                    <p className="text-xs text-slate-500 mt-1">Gunakan Google Maps untuk rute tercepat ke lokasi kami.</p>
-                    <a href="https://maps.google.com" target="_blank" rel="noreferrer" className="text-xs text-orange-500 font-bold mt-2 inline-block hover:underline">
-                      Buka di Google Maps →
-                    </a>
-                  </div>
-               </div>
+            {/* Map Column */}
+            <div className="lg:col-span-7 h-[500px] lg:h-auto rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 relative group">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2355.605924108673!2d110.84246818049397!3d-6.8134276167226036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e70c5d3afdf8d2b%3A0x15cbd851befe3108!2sBengkel%20Las%20Wijaya%20Konstruksi!5e0!3m2!1sen!2sid!4v1767910506237!5m2!1sen!2sid"
+                className="w-full h-full filter grayscale-[30%] group-hover:grayscale-0 transition-all duration-700"
+                style={{ border: 0 }} 
+                allowFullScreen="" 
+                loading="lazy" 
+                title="Lokasi Bengkel"
+              ></iframe>
+              <div className="absolute bottom-6 left-6 right-6 md:right-auto bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-lg border border-white/50 flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-xs font-bold text-orange-500 uppercase tracking-wider">Navigasi</p>
+                  <p className="text-slate-900 font-bold text-sm">Bengkel Wijaya Konstruksi</p>
+                </div>
+                <a 
+                  href="https://maps.app.goo.gl/jXhT3NEAfqiPDk5u7" 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="bg-orange-500 text-white p-3 rounded-xl hover:bg-orange-600 transition-colors"
+                >
+                  <Navigation size={20} />
+                </a>
+              </div>
             </div>
           </div>
-
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
-        <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex items-center gap-2">
-            <Flame className="w-6 h-6 text-orange-500" />
-            <span className="text-xl font-bold text-white">
-              BENGKEL <span className="text-orange-500">WIJAYA</span>
-            </span>
+      {/* Footer - Clean */}
+      <footer className="bg-slate-950 text-slate-400 py-16 border-t border-slate-900">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-8">
+            <div className="flex items-center gap-2">
+              <div className="bg-slate-800 p-2 rounded-lg">
+                <Flame className="w-6 h-6 text-orange-500" />
+              </div>
+              <span className="text-2xl font-bold text-white">
+                BENGKEL <span className="text-orange-500">WIJAYA</span>
+              </span>
+            </div>
+            <div className="flex gap-4">
+              {[Instagram, Facebook, MessageCircle].map((Icon, i) => (
+                <a key={i} href="#" className="w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300">
+                  <Icon size={20} />
+                </a>
+              ))}
+            </div>
           </div>
-          
-          <div className="flex gap-6 text-sm">
-            <a href="#" className="hover:text-white transition-colors">Tentang Kami</a>
-            <a href="#" className="hover:text-white transition-colors">Syarat & Ketentuan</a>
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+          <div className="border-t border-slate-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-medium">
+            <p>© 2024 Bengkel Wijaya Konstruksi. All rights reserved.</p>
+            <div className="flex gap-6">
+              <a href="#" className="hover:text-white transition-colors">Privacy</a>
+              <a href="#" className="hover:text-white transition-colors">Terms</a>
+            </div>
           </div>
-
-          <div className="flex gap-4">
-            <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all"><Instagram size={20} /></a>
-            <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all"><Facebook size={20} /></a>
-          </div>
-        </div>
-        <div className="text-center mt-8 text-sm opacity-50">
-          © 2024 Bengkel Wijaya. All rights reserved.
         </div>
       </footer>
 
-      {/* Floating WA Button */}
+      {/* Floating WA Button - Modern */}
       <a 
         href="https://wa.me/" 
         target="_blank" 
         rel="noreferrer"
-        className="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg shadow-green-500/40 z-50 transition-transform hover:scale-110 flex items-center gap-2"
+        className="fixed bottom-8 right-8 bg-[#25D366] text-white p-4 rounded-full shadow-2xl shadow-green-500/40 z-50 transition-transform hover:scale-110 flex items-center gap-3 group"
       >
-        <MessageCircle size={24} />
-        <span className="font-bold hidden md:inline">WhatsApp</span>
+        <MessageCircle size={28} />
+        <span className="font-bold max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-500 whitespace-nowrap">Chat Kami</span>
       </a>
 
     </div>
