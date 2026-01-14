@@ -2,7 +2,7 @@
   "name": "bengkel-las",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://OyenCar.github.io/BengkelWijaya",
+  "homepage": "https://oyencar.online",
   "type": "module",
   "scripts": {
     "dev": "vite",
