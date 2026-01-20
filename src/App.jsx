@@ -16,6 +16,8 @@ import {
   Navigation
 } from 'lucide-react';
 
+const nomorBengkel = import.meta.env.VITE_NOMOR_BENGKEL; 
+
 const App = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -75,6 +77,44 @@ const App = () => {
       setIsMobileMenuOpen(false);
     }
   };
+
+  // 1. Siapkan state untuk menampung data inputan user
+  const [form, setForm] = useState({
+    nama: '',
+    noWa: '',
+    kebutuhan: 'Pagar / Gerbang', // Default value
+    detail: ''
+  });
+
+  // 2. Fungsi untuk menangani perubahan saat user mengetik
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  };
+
+  // 3. Fungsi saat tombol dikirim
+  const handleKirim = (e) => {
+    e.preventDefault(); // Mencegah reload halaman
+
+    // --- GANTI NOMOR INI DENGAN NOMOR WA BENGKEL KAMU ---
+
+    // Format pesan yang akan muncul di WA
+    const pesan = `Halo Bengkel Wijaya, saya ingin konsultasi.
+    
+Nama: ${form.nama}
+No WA: ${form.noWa}
+Kebutuhan: ${form.kebutuhan}
+Detail: ${form.detail}
+
+Mohon infonya. Terima kasih.`;
+
+    // Membuat link WA
+    const url = `https://wa.me/${nomorBengkel}?text=${encodeURIComponent(pesan)}`;
+
+    // Membuka WA di tab baru
+    window.open(url, '_blank');
+  };
+
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-800">
@@ -355,29 +395,64 @@ const App = () => {
             {/* Form Column */}
             <div className="lg:col-span-5 bg-white p-8 rounded-[2.5rem] shadow-xl border border-slate-100">
               <h3 className="text-2xl font-bold text-slate-900 mb-6">Kirim Pesan</h3>
-              <form className="space-y-4">
+              <form className="space-y-4" onSubmit={handleKirim}>
                 <div className="space-y-1">
                   <label className="text-sm font-semibold text-slate-700 ml-1">Nama</label>
-                  <input type="text" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all" placeholder="Nama Lengkap" />
+                  <input 
+                    type="text" 
+                    name="nama"
+                    value={form.nama}
+                    onChange={handleChange}
+                    required
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all" 
+                    placeholder="Nama Lengkap" 
+                  />
                 </div>
+
                 <div className="space-y-1">
                   <label className="text-sm font-semibold text-slate-700 ml-1">Nomor WA</label>
-                  <input type="tel" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all" placeholder="08xx-xxxx-xxxx" />
+                  <input 
+                    type="tel" 
+                    name="noWa"
+                    value={form.noWa}
+                    onChange={handleChange}
+                    required
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all" 
+                    placeholder="08xx-xxxx-xxxx" 
+                  />
                 </div>
+
                 <div className="space-y-1">
                   <label className="text-sm font-semibold text-slate-700 ml-1">Kebutuhan</label>
-                  <select className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all">
+                  <select 
+                    name="kebutuhan"
+                    value={form.kebutuhan}
+                    onChange={handleChange}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all"
+                  >
                     <option>Pagar / Gerbang</option>
                     <option>Kanopi</option>
                     <option>Konstruksi Baja</option>
                     <option>Teralis / Railing</option>
                   </select>
                 </div>
+
                 <div className="space-y-1">
                   <label className="text-sm font-semibold text-slate-700 ml-1">Detail</label>
-                  <textarea rows="4" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all" placeholder="Ceritakan ukuran atau model yang diinginkan..."></textarea>
+                  <textarea 
+                    name="detail"
+                    value={form.detail}
+                    onChange={handleChange}
+                    rows="4" 
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all" 
+                    placeholder="Ceritakan ukuran atau model yang diinginkan..."
+                  ></textarea>
                 </div>
-                <button className="w-full bg-slate-900 text-white font-bold py-4 rounded-xl hover:bg-orange-500 transition-colors shadow-lg shadow-slate-900/20 hover:shadow-orange-500/20">
+
+                <button 
+                  type="submit"
+                  className="w-full bg-slate-900 text-white font-bold py-4 rounded-xl hover:bg-orange-500 transition-colors shadow-lg shadow-slate-900/20 hover:shadow-orange-500/20"
+                >
                   Kirim via WhatsApp
                 </button>
               </form>
@@ -444,7 +519,7 @@ const App = () => {
 
       {/* Floating WA Button - Modern */}
       <a 
-        href="https://wa.me/" 
+        href= {`https://wa.me/${nomorBengkel}`}
         target="_blank" 
         rel="noreferrer"
         className="fixed bottom-8 right-8 bg-[#25D366] text-white p-4 rounded-full shadow-2xl shadow-green-500/40 z-50 transition-transform hover:scale-110 flex items-center gap-3 group"
