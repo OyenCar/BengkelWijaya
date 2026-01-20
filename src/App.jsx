@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSwipeable } from 'react-swipeable';
 import { 
   Hammer, 
   Flame, 
@@ -17,6 +18,23 @@ import {
 } from 'lucide-react';
 
 const nomorBengkel = import.meta.env.VITE_NOMOR_BENGKEL; 
+const formatNomor = (nomor) => {
+  // 1. Pastikan input berupa string
+  let str = nomor.toString();
+
+  // 2. Ganti awalan '62' menjadi '0'
+  if (str.startsWith('62')) {
+    str = '0' + str.slice(2);
+  }
+
+  // 3. Pasang tanda strip (-)
+  // Logikanya: Ambil 4 digit pertama, lalu 4 digit kedua, lalu sisanya
+  return str.replace(/(\d{4})(\d{4})(\d+)/, '$1-$2-$3');
+};
+
+const nomorBengkelDisplay = formatNomor(nomorBengkel);
+const LokasiBengkel = "Jl. Letkol Tit Sudono No.80, Wergu Kulon, Kec. Kota Kudus, Kabupaten Kudus.";
+
 
 const App = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -69,6 +87,24 @@ const App = () => {
     { name: "Siti Aminah", role: "Developer Perumahan", text: "Sudah berlangganan untuk proyek perumahan cluster. Pagar minimalisnya presisi dan catnya awet." },
     { name: "Hendro Wijaya", role: "Manajer Gudang", text: "Konstruksi baja berat untuk gudang kami sangat kokoh. Tim Bengkel Wijaya bekerja sangat profesional." }
   ];
+
+  // 2. Buat fungsi untuk Logika Geser (Looping)
+  const handleNext = () => {
+    setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const handlePrev = () => {
+    setActiveTestimonial((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
+  };
+
+  // 3. Konfigurasi Swipe
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: handleNext,  // Geser ke kiri = Maju
+    onSwipedRight: handlePrev, // Geser ke kanan = Mundur
+    preventDefaultTouchmoveEvent: true, // Mencegah layar scroll saat swipe
+    trackMouse: true, // PENTING: Agar bisa di-drag pakai mouse di Desktop
+    trackTouch: true, // Agar bisa di-swipe pakai jari di HP
+  });
 
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
@@ -328,34 +364,58 @@ Mohon infonya. Terima kasih.`;
 
       {/* Testimonials */}
       <section id="testimoni" className="py-20 bg-slate-100">
-        <div className="container mx-auto px-4 max-w-4xl text-center">
-          <h2 className="text-3xl font-bold text-slate-900 mb-12">Apa Kata Mereka?</h2>
+      <div className="container mx-auto px-4 max-w-4xl text-center">
+        <h2 className="text-3xl font-bold text-slate-900 mb-12">Apa Kata Mereka?</h2>
+        
+        {/* 4. Pasang {...swipeHandlers} di elemen pembungkus kartu */}
+        {/* Tambahkan cursor-grab agar user tahu ini bisa digeser */}
+        <div 
+          {...swipeHandlers} 
+          className="bg-white p-8 md:p-12 rounded-3xl shadow-xl relative cursor-grab active:cursor-grabbing transition-transform duration-300"
+        >
           
-          <div className="bg-white p-8 md:p-12 rounded-3xl shadow-xl relative">
-            <div className="text-orange-500 mb-6 flex justify-center gap-1">
-              {[1,2,3,4,5].map(star => <Star key={star} fill="currentColor" size={24} />)}
-            </div>
-            <p className="text-xl md:text-2xl text-slate-700 italic mb-8 font-light leading-relaxed">
+          <div className="text-orange-500 mb-6 flex justify-center gap-1">
+            {[1, 2, 3, 4, 5].map((star) => (
+              <Star key={star} fill="currentColor" size={24} />
+            ))}
+          </div>
+
+          {/* Menambahkan key agar React merender ulang animasi saat index berubah */}
+          <div key={activeTestimonial} className="animate-fade-in">
+            <p className="text-xl md:text-2xl text-slate-700 italic mb-8 font-light leading-relaxed select-none">
               "{testimonials[activeTestimonial].text}"
             </p>
             <div>
-              <h4 className="font-bold text-slate-900 text-lg">{testimonials[activeTestimonial].name}</h4>
-              <span className="text-slate-500 text-sm">{testimonials[activeTestimonial].role}</span>
-            </div>
-
-            {/* Testimonial Nav */}
-            <div className="flex justify-center gap-3 mt-8">
-              {testimonials.map((_, idx) => (
-                <button 
-                  key={idx}
-                  onClick={() => setActiveTestimonial(idx)}
-                  className={`w-3 h-3 rounded-full transition-all ${activeTestimonial === idx ? 'bg-orange-500 w-8' : 'bg-slate-300'}`}
-                />
-              ))}
+              <h4 className="font-bold text-slate-900 text-lg">
+                {testimonials[activeTestimonial].name}
+              </h4>
+              <span className="text-slate-500 text-sm">
+                {testimonials[activeTestimonial].role}
+              </span>
             </div>
           </div>
+
+          {/* Testimonial Nav */}
+          <div className="flex justify-center gap-3 mt-8">
+            {testimonials.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveTestimonial(idx)}
+                className={`h-3 rounded-full transition-all duration-300 ${
+                  activeTestimonial === idx ? 'bg-orange-500 w-8' : 'bg-slate-300 w-3'
+                }`}
+                aria-label={`Lihat testimoni ${idx + 1}`}
+              />
+            ))}
+          </div>
         </div>
-      </section>
+        
+        {/* Opsional: Petunjuk visual kecil untuk user mobile */}
+        <p className="text-slate-400 text-xs mt-4 md:hidden">
+          Geser untuk melihat lainnya
+        </p>
+      </div>
+    </section>
 
        {/* Contact Section - Aesthetic Grid Layout */}
       <section id="kontak" className="py-24 bg-white">
@@ -371,14 +431,14 @@ Mohon infonya. Terima kasih.`;
                 <div className="p-3 bg-white rounded-2xl text-orange-500 shadow-sm"><Phone size={24} /></div>
                 <div>
                   <p className="text-xs text-slate-500 font-bold uppercase">WhatsApp / Telp</p>
-                  <p className="text-slate-900 font-bold">0812-3456-7890</p>
+                  <p className="text-slate-900 font-bold">{nomorBengkelDisplay}</p>
                 </div>
             </div>
             <div className="bg-slate-50 p-6 rounded-3xl border border-slate-100 flex items-center gap-4">
                 <div className="p-3 bg-white rounded-2xl text-orange-500 shadow-sm"><MapPin size={24} /></div>
                 <div>
                   <p className="text-xs text-slate-500 font-bold uppercase">Lokasi Workshop</p>
-                  <p className="text-slate-900 font-bold">Kec. Sukamaju, Kota Besi</p>
+                  <p className="text-slate-900 font-bold">{LokasiBengkel}</p>
                 </div>
             </div>
             <div className="bg-slate-50 p-6 rounded-3xl border border-slate-100 flex items-center gap-4">
@@ -493,10 +553,10 @@ Mohon infonya. Terima kasih.`;
           <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-8">
             <div className="flex items-center gap-2">
               <div className="bg-slate-800 p-2 rounded-lg">
-                <Flame className="w-6 h-6 text-orange-500" />
+                <img src="/LogoBengkelWeb.webp" className='w-10 h-10' />
               </div>
               <span className="text-2xl font-bold text-white">
-                BENGKEL <span className="text-orange-500">WIJAYA</span>
+                BENGKEL <span className="text-red-500">WIJAYA</span>
               </span>
             </div>
             <div className="flex gap-4">
