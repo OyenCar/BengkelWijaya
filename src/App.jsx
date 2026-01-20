@@ -123,7 +123,7 @@ Mohon infonya. Terima kasih.`;
       <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-slate-900 shadow-lg py-3' : 'bg-transparent py-5'}`}>
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <img src="/LogoBengkelRefinedRBG.png" alt="Logo" className="w-8 h-8" />
+            <img src="/LogoBengkelWeb.webp" alt="Logo" className="w-8 h-8" />
             <span className={`text-2xl font-bold tracking-tighter ${isScrolled ? 'text-white' : 'text-white'}`}>
               BENGKEL <span className="text-red-500">WIJAYA</span>
             </span>
